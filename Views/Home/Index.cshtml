@@ -1,0 +1,95 @@
+﻿@model fft
+
+@{
+    ViewData["Title"] = "FFT";
+}
+
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+</head>
+
+
+
+
+<body>
+
+    @Html.ActionLink("Create New", "Create")
+
+    <p>
+        <h1>Wykres FFT</h1>
+    </p>
+
+    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+    <p>
+        <h1>Sygnal f(t)</h1>
+    </p>
+
+    <canvas id="ft" style="width:100%;max-width:700px"></canvas>
+
+    <script>
+        var xyValues = [
+            { x: 10, y: @Model.buffer[0].Magnitude },
+            { x: 20, y: @Model.buffer[1].Magnitude },
+            { x: 30, y: @Model.buffer[2].Magnitude },
+            { x: 40, y: @Model.buffer[3].Magnitude },
+            { x: 50, y: @Model.buffer[4].Magnitude },
+            { x: 60, y: @Model.buffer[5].Magnitude },
+            { x: 70, y: @Model.buffer[6].Magnitude },
+            { x: 80, y: @Model.buffer[7].Magnitude }
+
+        ];
+
+        new Chart("myChart", {
+            type: "scatter",
+            data: {
+                datasets: [{
+                    pointRadius: 4,
+                    pointBackgroundColor: "rgb(0,0,255)",
+                    data: xyValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                scales: {
+                    xAxes: [{ ticks: { min: 10, max: 100 } }],
+                    yAxes: [{ ticks: { min: -10, max: 10 } }],
+                }
+            }
+        });
+
+
+
+        var xyValuess = [
+            { x: 10, y: @Math.Round(Model.danna[0].Magnitude,3) },
+            { x: 20, y: @Math.Round(Model.danna[1].Magnitude,3) },
+            { x: 30, y: @Math.Round(Model.danna[2].Magnitude,3)},
+            { x: 40, y: @Math.Round(Model.danna[3].Magnitude,3) },
+            { x: 50, y: @Math.Round(Model.danna[4].Magnitude,3) },
+            { x: 60, y: @Math.Round(Model.danna[5].Magnitude,3) },
+            { x: 70, y: @Math.Round(Model.danna[6].Magnitude,3)},
+            { x: 80, y: @Math.Round(Model.danna[7].Magnitude,3) }
+
+        ];
+
+        new Chart("ft", {
+            type: "scatter",
+            data: {
+                datasets: [{
+                    pointRadius: 4,
+                    pointBackgroundColor: "rgb(0,0,255)",
+                    data: xyValuess
+                }]
+            },
+            options: {
+                legend: { display: false },
+                scales: {
+                    xAxes: [{ ticks: { min: 10, max: 100 } }],
+                    yAxes: [{ ticks: { min: -10, max: 10 } }],
+                }
+            }
+        });
+    </script>
+</body>
